@@ -10,12 +10,13 @@
         @content;
     }
 }
-  
+
 @mixin desktop {
     @media (min-width: #{$desktop}) {
         @content;
     }
 }
+
 @mixin grid($columnas, $espaciado ) {
     display: grid;
     gap: $espaciado;
