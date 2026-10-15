@@ -89,8 +89,8 @@
             $errores[] = "La imagen es obligatoria";
         }
 
-        /* Validar por tamaño (100 kb maximo) */
-        $medida = 1000 * 100;
+        /* Validar por tamaño (1mb maximo) */
+        $medida = 1000 * 1000;
 
 
         if($imagen['size'] >$medida ) {
@@ -103,9 +103,30 @@
 
         /* Revisar que el array de errores este vacio */
         if(empty($errores)) {
+
+            /* Subida de archivos */
+
+            // Crear carpeta
+            $carpetaImagenes = '../../imagenes/';
+
+
+            if(!is_dir($carpetaImagenes)) {
+                mkdir($carpetaImagenes); /* Si no hay errores va a crear la carpeta */
+            }
+
+
+            /* Generar un nombre unico */
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg"; /* md5 genera un hash unico, uniqid genera un id unico, rand genera un numero aleatorio */
+
+
+
+            /* Subir la imagen */
+            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
+
+
             // Insertar en la base de datos
-            $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado,
-            vendedores_Id) VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_Id')";
+            $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado,
+            vendedores_Id) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_Id')";
     
             // echo $query;
     
@@ -113,7 +134,7 @@
     
             if($resultado) {
                 /* Redireccionar al usuario y evitar que se guarde y piense que no se hizo nada */
-                header('Location: /admin');
+                header('Location: /admin?resultado=1');
             }
         }
         }
