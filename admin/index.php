@@ -1,7 +1,7 @@
 <?php
 
     //Importar la conexión
-    require '../includes/config/database.example.php';
+    require '../includes/config/database.php';
     $db = conectarDB();
 
     //Escribir el Query
@@ -9,7 +9,6 @@
 
     //Consultar la BD
     $resultadoConsulta = mysqli_query($db, $query);
-
 
     // Muestra mensaje condicional
     $resultado = $_GET['resultado'] ?? null; /* Si no existe el resultado, asignar null */
@@ -26,7 +25,6 @@
         <?php endif; ?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva propiedad</a>
-
 
         <table class="propiedades">
             <thead>
@@ -57,7 +55,6 @@
     </main>
 
 <?php
-
 
     // Cerrar la conexión
     mysqli_close($db);
