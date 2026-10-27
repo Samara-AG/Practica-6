@@ -8,13 +8,15 @@ El desarrollo sigue las secciones 26 a 31 del curso de Udemy indicado en clase.
 
 **Sitio público**
 - Páginas de inicio, nosotros, anuncios, blog y contacto.
+- Anuncios generados dinámicamente a partir de las propiedades guardadas en MySQL.
 - Encabezado y pie de página reutilizables mediante plantillas de PHP.
 - Modo oscuro.
 
 **Administrador** (requiere iniciar sesión)
 - Listado de propiedades en una tabla dinámica leída desde MySQL.
 - Crear propiedades con validación y sanitización de datos y subida de imagen.
-- Actualizar y eliminar propiedades.
+- Actualizar propiedades, con el formulario precargado y reemplazo opcional de la imagen.
+- Eliminar propiedades, borrando también su imagen del servidor.
 - Inicio y cierre de sesión con contraseñas cifradas (`password_hash` y `password_verify`).
 
 ## Tecnologías
@@ -44,7 +46,8 @@ Practica-6/
 │   │   └── database.php           # Conexión local (NO se sube)
 │   └── templates/
 │       ├── header.php
-│       └── footer.php
+│       ├── footer.php
+│       └── anuncios.php           # Anuncios leídos de la base de datos
 ├── src/                           # Código fuente (SCSS y JS)
 ├── index.php, nosotros.php, anuncios.php, anuncio.php,
 │   blog.php, entrada.php, contacto.php
@@ -179,6 +182,8 @@ Después, iniciar sesión en <http://localhost:3000/login.php> con los datos def
 | `Access denied for user 'root'` | Contraseña o usuario incorrectos en `database.php`. |
 | `Unknown database 'bienesraices_crud'` | La base no existe o tiene otro nombre. |
 | `Table '...' doesn't exist` | Faltan las tablas: ejecutar el modelo o el script SQL. |
+| `Undefined array key "vendedores_id"` | Las llaves de los arreglos distinguen mayúsculas: la columna se llama `vendedores_id`, en minúsculas. |
+| Error de SQL en los anuncios del inicio | Falta definir `$limite` antes de incluir `includes/templates/anuncios.php`. |
 | `/admin` regresa al inicio | No se ha iniciado sesión en `/login.php`. |
 | Página sin estilos ni imágenes | No se está usando `php -S` desde la raíz del proyecto. |
 
@@ -186,10 +191,10 @@ Después, iniciar sesión en <http://localhost:3000/login.php> con los datos def
 
 | Integrante | Aportación |
 |---|---|
-| Samara Arias Gil | Estructura del proyecto, repositorio y ramas, plantillas, funciones compartidas y base de datos |
-| Carlos Alexander Castillo Gómez | Conexión a la base de datos, tabla dinámica del administrador y formulario de creación |
-| Jesús Daniel Espinosa Solano | _(completar)_ |
-| Alfredo Ramos López | Inicio y cierre de sesión, sesiones y cifrado de contraseñas |
+| Samara Arias Gil | Estructura del proyecto, repositorio y ramas, plantillas de encabezado y pie de página, funciones compartidas y diseño de la base de datos en Workbench |
+| Carlos Alexander Castillo Gómez | Conexión a la base de datos, tabla dinámica del administrador y formulario de creación con validación, sanitización y subida de imágenes |
+| Jesús Daniel Espinosa Solano | Actualización de propiedades (formulario precargado y reemplazo de la imagen), eliminación de propiedades con borrado del archivo y anuncios dinámicos del sitio público |
+| Alfredo Ramos López | Inicio y cierre de sesión, sesiones, cifrado de contraseñas y protección de las páginas del administrador |
 
 ## Repositorio
 
