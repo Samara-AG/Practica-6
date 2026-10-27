@@ -1,4 +1,12 @@
 <?php
+
+    require '../../includes/funciones.php';
+    $auth = estaautenticado();
+
+    if(!$auth){
+        header('Location: /');
+    }
+
     // Base de datos
     require '../../includes/config/database.php';
     $db = conectarDB();
@@ -139,9 +147,6 @@
         }
         }
 
-
-
-    require '../../includes/funciones.php';
     incluirTemplate('header');
 ?>
 
